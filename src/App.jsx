@@ -24,9 +24,9 @@ function App() {
 
   useEffect(() => {
     const form = document.querySelector("form");
-    setStepWidth(form.clientWidth * 3);
+    setStepWidth(form.clientWidth * 3 + stepChildMarginRight * 3);
     setStepChildWidth(form.clientWidth);
-  }, []);
+  }, [stepChildMarginRight]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -67,20 +67,16 @@ function App() {
           }`}
           style={{
             width: `${stepWidth + 96}px`,
-            transform:
-              step === 1
-                ? `translateX(-${(step - 1) * (stepWidth / 3)}px)`
-                : `translateX(-${
-                    (step - 1) * (stepWidth / 3) + stepChildMarginRight
-                  }px)`,
+            transform: `translateX(-${(step - 1) * (stepWidth / 3)}px)`,
             transition: "transform 0.3s ease-in-out",
           }}
         >
           <div
-            className="step1 inline-block w-full align-top mr-8"
+            className="step1 inline-block w-full align-top mr-10"
             style={{ width: `${stepChildWidth}px` }}
           >
             <input
+              required
               type="text"
               placeholder="Name"
               value={form.name}
@@ -90,6 +86,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="email"
               placeholder="Email"
               value={form.email}
@@ -99,6 +96,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="text"
               placeholder="Father's Name"
               value={form.fname}
@@ -108,6 +106,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="text"
               placeholder="Mother's Name"
               value={form.mname}
@@ -118,10 +117,11 @@ function App() {
           </div>
 
           <div
-            className="step2 inline-block w-full align-top mr-8"
+            className="step2 inline-block w-full align-top mr-10"
             style={{ width: `${stepChildWidth}px` }}
           >
             <input
+              required
               type="text"
               placeholder="Address"
               value={form.address}
@@ -131,6 +131,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="text"
               placeholder="City"
               value={form.city}
@@ -140,6 +141,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="text"
               placeholder="State"
               value={form.state}
@@ -149,6 +151,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="text"
               placeholder="Country"
               value={form.country}
@@ -159,10 +162,11 @@ function App() {
           </div>
 
           <div
-            className="step3 inline-block w-full align-top mr-8"
+            className="step3 inline-block w-full align-top mr-10"
             style={{ width: `${stepChildWidth}px` }}
           >
             <input
+              required
               type="text"
               placeholder="Phone Number"
               value={form.phone}
@@ -172,6 +176,7 @@ function App() {
             />
             <br />
             <input
+              required
               type="text"
               placeholder="Date of Birth"
               value={form.dob}
