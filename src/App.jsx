@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -10,6 +10,17 @@ function App() {
   });
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(null);
+  const [stepWidth, setStepWidth] = useState(null);
+  const [stepChildWidth, setStepChildWidth] = useState(null);
+
+  useEffect(() => {
+    const stepElement = document.querySelector(".step");
+    console.log(stepElement.children[0].clientWidth);
+    setStepChildWidth(stepElement.children[0].clientWidth);
+    setStepWidth(
+      stepElement.children[0].clientWidth * stepElement.children.length
+    );
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +32,7 @@ function App() {
     setTimeout(() => {
       if (step < 3) setStep(step + 1); // Delay step change
       setDirection(null); // Reset direction after the animation
-    }, 500);
+    }, 300);
   };
 
   const handleBack = (e) => {
@@ -30,7 +41,7 @@ function App() {
     setTimeout(() => {
       if (step > 1) setStep(step - 1);
       setDirection(null);
-    }, 500);
+    }, 300);
   };
 
   return (
@@ -41,15 +52,20 @@ function App() {
 
       <form action="" onSubmit={(e) => e.preventDefault()}>
         <div
-          className={`step min-h-64 flex ${
+          className={`step w-full min-h-64  ${
             direction === "next"
               ? "slide-in-right"
               : direction === "previous"
               ? "slide-in-left"
               : ""
           }`}
+          style={{
+            width: `${stepWidth}px`,
+            transform: `translateX(-${(step - 1) * (stepWidth / 3)}px)`,
+            transition: "transform 0.3s ease-in-out",
+          }}
         >
-          <div className="step1 w-full">
+          <div className="step1 inline-block w-full align-top" style={{width: `${stepChildWidth}px`}} >
             <input
               type="text"
               placeholder="Name"
@@ -87,7 +103,7 @@ function App() {
             />
           </div>
 
-          <div className="step2 w-full">
+          <div className="step2 inline-block w-full align-top" style={{width: `${stepChildWidth}px`}} >
             <input
               type="text"
               placeholder="Address"
@@ -125,7 +141,7 @@ function App() {
             />
           </div>
 
-          <div className="step3 w-full">
+          <div className="step3 inline-block w-full align-top" style={{width: `${stepChildWidth}px`}} >
             <input
               type="text"
               placeholder="Phone Number"

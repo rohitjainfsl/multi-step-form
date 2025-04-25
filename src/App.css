@@ -11,20 +11,20 @@ body {
   align-items: center;
 }
 
-.step {
+/* .step {
   display: flex;
   flex-direction: row;
   width: 100%;
   overflow: hidden;
-}
+} */
 
-.step > div {
+/* .step > div {
   flex: 0 0 100%;
   width: 100%;
-}
+} */
 
 /* Swipe animations */
-.slide-in-right {
+/* .slide-in-right {
   animation: slideInRight 0.5s ease-in-out forwards;
 }
 
@@ -52,4 +52,4 @@ body {
     transform: translateX(0);
     opacity: 1;
   }
-}
+} */
