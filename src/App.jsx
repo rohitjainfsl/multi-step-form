@@ -62,7 +62,7 @@ function App() {
   };
 
   return (
-    <div className="w-[50%] p-8 rounded-2xl bg-white shadow-lg shadow-gray-300 mx-auto mt-10 overflow-x-hidden">
+    <div className="w-full mx-2 sm:mx-auto sm:w-[50%] p-2 sm:p-8 rounded-2xl bg-white shadow-lg shadow-gray-300 mt-10 overflow-x-hidden">
       <h1 className="text-4xl font-bold mb-6 text-center">Multi Step Form</h1>
 
       <h2 className="font-bold mb-4">Step {step}</h2>
