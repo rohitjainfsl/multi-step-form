@@ -12,14 +12,20 @@ function App() {
   const [direction, setDirection] = useState(null);
   const [stepWidth, setStepWidth] = useState(null);
   const [stepChildWidth, setStepChildWidth] = useState(null);
+  const [stepChildMarginRight, setStepChildMarginRight] = useState(0);
 
   useEffect(() => {
-    const stepElement = document.querySelector(".step");
-    console.log(stepElement.children[0].clientWidth);
-    setStepChildWidth(stepElement.children[0].clientWidth);
-    setStepWidth(
-      stepElement.children[0].clientWidth * stepElement.children.length
-    );
+    const stepChild = document.querySelector(".step1");
+    if (stepChild) {
+      const stepChildStyle = window.getComputedStyle(stepChild);
+      setStepChildMarginRight(parseFloat(stepChildStyle.marginRight));
+    }
+  }, []);
+
+  useEffect(() => {
+    const form = document.querySelector("form");
+    setStepWidth(form.clientWidth * 3);
+    setStepChildWidth(form.clientWidth);
   }, []);
 
   const handleChange = (e) => {
@@ -30,7 +36,7 @@ function App() {
     e.preventDefault();
     setDirection("next");
     setTimeout(() => {
-      if (step < 3) setStep(step + 1); // Delay step change
+      if (step <= 3) setStep(step + 1); // Delay step change
       setDirection(null); // Reset direction after the animation
     }, 300);
   };
@@ -60,12 +66,20 @@ function App() {
               : ""
           }`}
           style={{
-            width: `${stepWidth}px`,
-            transform: `translateX(-${(step - 1) * (stepWidth / 3)}px)`,
+            width: `${stepWidth + 96}px`,
+            transform:
+              step === 1
+                ? `translateX(-${(step - 1) * (stepWidth / 3)}px)`
+                : `translateX(-${
+                    (step - 1) * (stepWidth / 3) + stepChildMarginRight
+                  }px)`,
             transition: "transform 0.3s ease-in-out",
           }}
         >
-          <div className="step1 inline-block w-full align-top" style={{width: `${stepChildWidth}px`}} >
+          <div
+            className="step1 inline-block w-full align-top mr-8"
+            style={{ width: `${stepChildWidth}px` }}
+          >
             <input
               type="text"
               placeholder="Name"
@@ -103,7 +117,10 @@ function App() {
             />
           </div>
 
-          <div className="step2 inline-block w-full align-top" style={{width: `${stepChildWidth}px`}} >
+          <div
+            className="step2 inline-block w-full align-top mr-8"
+            style={{ width: `${stepChildWidth}px` }}
+          >
             <input
               type="text"
               placeholder="Address"
@@ -141,7 +158,10 @@ function App() {
             />
           </div>
 
-          <div className="step3 inline-block w-full align-top" style={{width: `${stepChildWidth}px`}} >
+          <div
+            className="step3 inline-block w-full align-top mr-8"
+            style={{ width: `${stepChildWidth}px` }}
+          >
             <input
               type="text"
               placeholder="Phone Number"
