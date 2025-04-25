@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -13,6 +13,8 @@ function App() {
   const [stepWidth, setStepWidth] = useState(null);
   const [stepChildWidth, setStepChildWidth] = useState(null);
   const [stepChildMarginRight, setStepChildMarginRight] = useState(0);
+
+  const nextButtonRef = useRef(null);
 
   useEffect(() => {
     const stepChild = document.querySelector(".step1");
@@ -48,6 +50,15 @@ function App() {
       if (step > 1) setStep(step - 1);
       setDirection(null);
     }, 300);
+  };
+
+  const handleTabToButton = (e) => {
+    if (e.key === "Tab" && !e.shiftKey) {
+      e.preventDefault(); // Prevent default tab behavior
+      if (nextButtonRef.current) {
+        nextButtonRef.current.focus(); // Focus the Next/Submit button
+      }
+    }
   };
 
   return (
@@ -113,6 +124,7 @@ function App() {
               name="mname"
               onChange={handleChange}
               className="border-4 border-gray-600 rounded w-full mb-2 px-4 py-2 focus:border-0 focus:outline-4 focus:outline-blue-500"
+              onKeyDown={handleTabToButton} // Handle Tab key
             />
           </div>
 
@@ -158,6 +170,7 @@ function App() {
               name="country"
               onChange={handleChange}
               className="border-4 border-gray-600 rounded w-full mb-2 px-4 py-2 focus:border-0 focus:outline-4 focus:outline-blue-500"
+              onKeyDown={handleTabToButton} // Handle Tab key
             />
           </div>
 
@@ -183,6 +196,7 @@ function App() {
               name="dob"
               onChange={handleChange}
               className="border-4 border-gray-600 rounded w-full mb-2 px-4 py-2 focus:border-0 focus:outline-4 focus:outline-blue-500"
+              onKeyDown={handleTabToButton} // Handle Tab key
             />
           </div>
         </div>
@@ -199,6 +213,7 @@ function App() {
           </button>
           {step === 3 ? (
             <button
+              ref={nextButtonRef} // Set ref to the Submit button
               onClick={() => alert("Form submitted!")}
               className="border-4 border-blue-300 bg-blue-300 text-lg px-3 rounded cursor-pointer transition-all duration-300 hover:bg-white my-3"
             >
@@ -206,6 +221,7 @@ function App() {
             </button>
           ) : (
             <button
+              ref={nextButtonRef} // Set ref to the Next button
               onClick={handleNext}
               className="border-4 border-green-300 bg-green-300 text-lg px-3 rounded cursor-pointer transition-all duration-300 hover:bg-white my-3"
             >
